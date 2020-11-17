@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+using UnityEditor;
 
 public class HandPresence : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class HandPresence : MonoBehaviour
     void Start()
     {
         this.TryInitialize();
+        
+        this.spawnedHandModel = Instantiate(this.handModelPrefab, transform);
+        this.handAnimator = this.spawnedHandModel.GetComponent<Animator>();
     }
 
     void TryInitialize() {
@@ -23,9 +27,6 @@ public class HandPresence : MonoBehaviour
         if (devices.Count > 0) {
             this.targetDevice = devices[0];
         }
-
-        this.spawnedHandModel = Instantiate(this.handModelPrefab, transform);
-        this.handAnimator = this.spawnedHandModel.GetComponent<Animator>();
     }
 
     void UpdateHandAnimation() {
